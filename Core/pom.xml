@@ -140,6 +140,17 @@
                 </dependency>
             </dependencies>
         </profile>
+
+        <profile>
+            <id>with-plotsquared</id>
+            <dependencies>
+                <dependency>
+                    <groupId>${project.groupId}</groupId>
+                    <artifactId>integration-plot-squared</artifactId>
+                    <version>${project.version}</version>
+                </dependency>
+            </dependencies>
+        </profile>
     </profiles>
 
     <build>
