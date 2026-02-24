@@ -110,3 +110,23 @@ mvn clean package -Pwith-plot-squared
 # include standard integrations and PlotSquared together
 mvn clean package -Pwith-integrations,with-plot-squared
 ```
+
+## Troubleshooting dependency resolution
+
+If Maven reports that `io.papermc.paper:paper-api:1.21.11-R0.1-SNAPSHOT` was previously missing from `nightexpress-releases`, do **not** downgrade Paper immediately. This is usually a repository routing/cache issue.
+
+Recommended recovery sequence:
+
+```bash
+# 1) force snapshot refresh
+mvn -U clean install
+
+# 2) if still cached as missing, remove stale marker files and retry
+find ~/.m2/repository/io/papermc/paper/paper-api -name "*.lastUpdated" -delete
+mvn -U clean install
+```
+
+Notes:
+
+- `paper-api` snapshots must resolve from `papermc` (`https://repo.papermc.io/repository/maven-public/`), not from release-only repos.
+- If your environment uses an HTTP proxy, allowlist Maven Central and PaperMC endpoints; otherwise plugin resolution can fail before project dependencies are resolved.
