@@ -11,16 +11,6 @@
     <modules>
         <module>Core</module>
         <module>api</module>
-        <module>integration-excellent-claims</module>
-        <module>integration-grief-defender</module>
-        <module>integration-grief-prevention</module>
-        <module>integration-husk-claims</module>
-        <module>integration-kingdoms</module>
-        <module>integration-lands</module>
-        <module>integration-simple-claim-system</module>
-        <module>integration-world-guard</module>
-        <module>integration-advanced-region-market</module>
-        <module>integration-upgradeable-hoppers</module>
     </modules>
 
     <profiles>
@@ -80,4 +70,99 @@
         </dependency>
     </dependencies>
 
+    <profiles>
+        <profile>
+            <id>with-integrations</id>
+            <modules>
+                <module>integration-excellent-claims</module>
+                <module>integration-grief-defender</module>
+                <module>integration-grief-prevention</module>
+                <module>integration-husk-claims</module>
+                <module>integration-kingdoms</module>
+                <module>integration-lands</module>
+                <module>integration-simple-claim-system</module>
+                <module>integration-world-guard</module>
+                <module>integration-advanced-region-market</module>
+                <module>integration-upgradeable-hoppers</module>
+            </modules>
+        </profile>
+
+        <profile>
+            <id>with-excellent-claims</id>
+            <modules>
+                <module>integration-excellent-claims</module>
+            </modules>
+        </profile>
+
+        <profile>
+            <id>with-grief-defender</id>
+            <modules>
+                <module>integration-grief-defender</module>
+            </modules>
+        </profile>
+
+        <profile>
+            <id>with-grief-prevention</id>
+            <modules>
+                <module>integration-grief-prevention</module>
+            </modules>
+        </profile>
+
+        <profile>
+            <id>with-husk-claims</id>
+            <modules>
+                <module>integration-husk-claims</module>
+            </modules>
+        </profile>
+
+        <profile>
+            <id>with-kingdoms</id>
+            <modules>
+                <module>integration-kingdoms</module>
+            </modules>
+        </profile>
+
+        <profile>
+            <id>with-lands</id>
+            <modules>
+                <module>integration-lands</module>
+            </modules>
+        </profile>
+
+        <profile>
+            <id>with-simple-claim-system</id>
+            <modules>
+                <module>integration-simple-claim-system</module>
+            </modules>
+        </profile>
+
+        <profile>
+            <id>with-world-guard</id>
+            <modules>
+                <module>integration-world-guard</module>
+            </modules>
+        </profile>
+
+        <profile>
+            <id>with-advanced-region-market</id>
+            <modules>
+                <module>integration-advanced-region-market</module>
+            </modules>
+        </profile>
+
+        <profile>
+            <id>with-upgradeable-hoppers</id>
+            <modules>
+                <module>integration-upgradeable-hoppers</module>
+            </modules>
+        </profile>
+
+        <profile>
+            <id>with-plot-squared</id>
+            <modules>
+                <module>integration-plot-squared</module>
+            </modules>
+        </profile>
+
+    </profiles>
 </project>

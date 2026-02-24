@@ -24,7 +24,6 @@ import org.jetbrains.annotations.Nullable;
 import su.nightexpress.orbisshop.api.claim.ClaimHook;
 import su.nightexpress.orbisshop.api.playershop.PlayerShop;
 import su.nightexpress.orbisshop.api.playershop.PlayerShopManager;
-import su.nightexpress.orbisshop.integration.claim.*;
 import su.nightexpress.nexshop.Placeholders;
 import su.nightexpress.nexshop.ShopPlugin;
 import su.nightexpress.nexshop.api.module.ShopModule;
@@ -41,9 +40,7 @@ import su.nightexpress.nexshop.shop.chest.command.ChestShopCommands;
 import su.nightexpress.nexshop.shop.chest.config.*;
 import su.nightexpress.nexshop.shop.chest.display.DisplayManager;
 import su.nightexpress.nexshop.shop.chest.impl.*;
-import su.nightexpress.orbisshop.integration.claim.RegionMarketListener;
 import su.nightexpress.nexshop.shop.chest.listener.ShopListener;
-import su.nightexpress.orbisshop.integration.shop.UpgradeHopperListener;
 import su.nightexpress.nexshop.shop.chest.lookup.ShopLookup;
 import su.nightexpress.nexshop.shop.chest.menu.*;
 import su.nightexpress.nexshop.shop.chest.rent.RentSettings;
@@ -54,6 +51,7 @@ import su.nightexpress.nightcore.config.FileConfig;
 import su.nightexpress.nightcore.core.config.CoreLang;
 import su.nightexpress.nightcore.integration.currency.CurrencyId;
 import su.nightexpress.nightcore.integration.currency.EconomyBridge;
+import su.nightexpress.nightcore.manager.AbstractListener;
 import su.nightexpress.nightcore.ui.UIUtils;
 import su.nightexpress.nightcore.ui.menu.confirmation.Confirmation;
 import su.nightexpress.nightcore.util.*;
@@ -67,7 +65,6 @@ import java.io.File;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Consumer;
-import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 public class ChestShopModule extends AbstractModule implements ShopModule, PlayerShopManager {
@@ -216,34 +213,66 @@ public class ChestShopModule extends AbstractModule implements ShopModule, Playe
 
     private void loadHooks() {
         if (ChestConfig.SHOP_CREATION_CLAIM_ONLY.get()) {
-            this.loadClaimHook(HookPlugin.LANDS, () -> new LandsHook(this.plugin));
-            this.loadClaimHook(HookPlugin.GRIEF_PREVENTION, GriefPreventionHook::new);
-            this.loadClaimHook(HookPlugin.GRIEF_DEFENDER, GriefDefenderHook::new);
-            this.loadClaimHook(HookPlugin.WORLD_GUARD, WorldGuardHook::new);
-            this.loadClaimHook(HookPlugin.KINGDOMS, KingdomsHook::new);
-            this.loadClaimHook(HookPlugin.HUSK_CLAIMS, HuskClaimsHook::new);
-            this.loadClaimHook(HookPlugin.SIMPLE_CLAIM_SYSTEM, SimpleClaimHook::new);
-            this.loadClaimHook(HookPlugin.EXCELLENT_CLAIMS, ExcellentClaimsHook::new);
-            this.loadClaimHook(HookPlugin.PLOT_SQUARED, () -> new PlotSquaredClaimHook(this));
+            this.loadClaimHook(HookPlugin.LANDS, "su.nightexpress.orbisshop.integration.claim.LandsHook", this.plugin);
+            this.loadClaimHook(HookPlugin.GRIEF_PREVENTION, "su.nightexpress.orbisshop.integration.claim.GriefPreventionHook");
+            this.loadClaimHook(HookPlugin.GRIEF_DEFENDER, "su.nightexpress.orbisshop.integration.claim.GriefDefenderHook");
+            this.loadClaimHook(HookPlugin.WORLD_GUARD, "su.nightexpress.orbisshop.integration.claim.WorldGuardHook");
+            this.loadClaimHook(HookPlugin.KINGDOMS, "su.nightexpress.orbisshop.integration.claim.KingdomsHook");
+            this.loadClaimHook(HookPlugin.HUSK_CLAIMS, "su.nightexpress.orbisshop.integration.claim.HuskClaimsHook");
+            this.loadClaimHook(HookPlugin.SIMPLE_CLAIM_SYSTEM, "su.nightexpress.orbisshop.integration.claim.SimpleClaimHook");
+            this.loadClaimHook(HookPlugin.EXCELLENT_CLAIMS, "su.nightexpress.orbisshop.integration.claim.ExcellentClaimsHook");
+            this.loadClaimHook(HookPlugin.PLOT_SQUARED, "su.nightexpress.orbisshop.integration.claim.PlotSquaredClaimHook", this);
         }
 
         if (Plugins.isInstalled(HookPlugin.ADVANCED_REGION_MARKET)) {
-            this.addListener(new RegionMarketListener(this.plugin, this));
+            this.loadListenerHook(HookPlugin.ADVANCED_REGION_MARKET, "su.nightexpress.orbisshop.integration.claim.RegionMarketListener", this.plugin, this);
         }
 
-        if (ChestUtils.isInfiniteStorage()) {
-            if (Plugins.isInstalled(HookPlugin.UPGRADEABLE_HOPPERS)) {
-                this.addListener(new UpgradeHopperListener(this.plugin, this));
-            }
+        if (ChestUtils.isInfiniteStorage() && Plugins.isInstalled(HookPlugin.UPGRADEABLE_HOPPERS)) {
+            this.loadListenerHook(HookPlugin.UPGRADEABLE_HOPPERS, "su.nightexpress.orbisshop.integration.shop.UpgradeHopperListener", this.plugin, this);
         }
     }
 
-    private boolean loadClaimHook(@NotNull String plugin, @NotNull Supplier<ClaimHook> supplier) {
+    private boolean loadClaimHook(@NotNull String plugin, @NotNull String className, @NotNull Object... constructorArgs) {
         if (!Plugins.isInstalled(plugin)) return false;
 
-        this.claimHooks.add(supplier.get());
+        ClaimHook hook = this.newHookInstance(plugin, className, ClaimHook.class, constructorArgs);
+        if (hook == null) return false;
+
+        this.claimHooks.add(hook);
         this.info("Hooked into claim plugin: " + plugin);
         return true;
+    }
+
+    private void loadListenerHook(@NotNull String plugin, @NotNull String className, @NotNull Object... constructorArgs) {
+        AbstractListener<?> listener = this.newHookInstance(plugin, className, AbstractListener.class, constructorArgs);
+        if (listener != null) {
+            this.addListener(listener);
+            this.info("Hooked into listener integration: " + plugin);
+        }
+    }
+
+    @Nullable
+    private <T> T newHookInstance(@NotNull String plugin, @NotNull String className, @NotNull Class<T> type, @NotNull Object... constructorArgs) {
+        try {
+            Class<?> hookClass = Class.forName(className);
+            Class<?>[] parameterTypes = Arrays.stream(constructorArgs).map(Object::getClass).toArray(Class[]::new);
+            Object instance = hookClass.getDeclaredConstructor(parameterTypes).newInstance(constructorArgs);
+
+            if (!type.isInstance(instance)) {
+                this.warn("Unable to enable " + plugin + " integration: '" + className + "' is not a " + type.getSimpleName() + '.');
+                return null;
+            }
+            return type.cast(instance);
+        }
+        catch (ClassNotFoundException ignored) {
+            this.warn("Integration class is missing for installed plugin '" + plugin + "': " + className + ". Build with -Pwith-integrations to include this module.");
+        }
+        catch (ReflectiveOperationException exception) {
+            this.error("Unable to initialize integration for plugin '" + plugin + "': " + className);
+            exception.printStackTrace();
+        }
+        return null;
     }
 
     private void loadDisplayManager() {
