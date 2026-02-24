@@ -21,13 +21,19 @@
         <module>integration-world-guard</module>
         <module>integration-advanced-region-market</module>
         <module>integration-upgradeable-hoppers</module>
-        <module>integration-plot-squared</module>
+        <!--
+          PlotSquared integration is intentionally excluded from the default reactor build because
+          its upstream repository frequently responds with HTTP 403 for automated Maven clients.
+          The module remains in the repository and can still be built manually in environments
+          where that dependency source is accessible.
+        -->
     </modules>
 
     <properties>
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <paper.api.version>1.21.11-R0.1-SNAPSHOT</paper.api.version>
     </properties>
 
     <distributionManagement>
@@ -41,6 +47,12 @@
         <repository>
             <id>papermc</id>
             <url>https://repo.papermc.io/repository/maven-public/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
         </repository>
 
         <repository>
@@ -53,7 +65,7 @@
         <dependency>
             <groupId>io.papermc.paper</groupId>
             <artifactId>paper-api</artifactId>
-            <version>1.21.8-R0.1-SNAPSHOT</version>
+            <version>${paper.api.version}</version>
             <scope>provided</scope>
         </dependency>
 
