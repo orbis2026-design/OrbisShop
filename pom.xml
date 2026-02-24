@@ -17,7 +17,7 @@
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <paper.api.version>1.21.1-R0.1-SNAPSHOT</paper.api.version>
+        <paper.api.version>1.21.11-R0.1-SNAPSHOT</paper.api.version>
     </properties>
 
     <distributionManagement>
@@ -32,7 +32,7 @@
             <id>papermc</id>
             <url>https://repo.papermc.io/repository/maven-public/</url>
             <releases>
-                <enabled>true</enabled>
+                <enabled>false</enabled>
             </releases>
             <snapshots>
                 <enabled>true</enabled>
