@@ -1,0 +1,18 @@
+name: ExcellentShop
+main: su.nightexpress.nexshop.ShopPlugin
+version: '${project.version}'
+description: Advanced 4 in 1 shop plugin with a lot of cool features!
+author: NightExpress
+depend: [ nightcore ]
+softdepend:
+  - WorldGuard
+  - Lands
+  - Kingdoms
+  - AdvancedRegionMarket
+  - GriefPrevention
+  - HuskClaims
+  - PlaceholderAPI
+  - ProtocolLib
+  - packetevents
+  - PlotSquared
+api-version: 1.18

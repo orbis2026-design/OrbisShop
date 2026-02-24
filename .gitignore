@@ -1,0 +1,4 @@
+/.idea/
+**/pom.xml.versionsBackup
+**/target/
+!src/**/target/
