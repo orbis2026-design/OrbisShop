@@ -62,8 +62,8 @@ It includes **GUI Shop** (with Rotations), **Chest Shop** and **Auction House**.
 - [**PlaceholderAPI**](https://nightexpressdev.com/excellentshop/placeholders/papi) Support.
 
 ## System Requirements
-- Server Software: [**Spigot**](https://www.spigotmc.org/link-forums/88/) or [**Paper**](https://papermc.io/downloads/paper)
-- Server Version: <span style="color:red">**1.21.1**</span> or above
+- Server Software: [**Spigot**](https://www.spigotmc.org/link-forums/88/)
+- Server Version: <span style="color:red">**1.21.4**</span> or above
 - Java Version: [**21**](https://adoptium.net/temurin/releases) or above
 - Dependencies:
   - [**nightcore**](https://nightexpressdev.com/nightcore/) - Plugin engine.
@@ -86,48 +86,27 @@ Use one settings profile at a time when resolving dependencies:
 - `mvn -Pdirect ...` for direct (no proxy) access.
 - `mvn -Pcorp-proxy ...` for corporate proxy routing.
 
-The `corp-proxy` profile must include `repo.papermc.io|repo.maven.apache.org|repo.nightexpressdev.com` in `http.nonProxyHosts` so those repositories bypass the proxy.
+The `corp-proxy` profile must include `hub.spigotmc.org|repo.maven.apache.org|repo.nightexpressdev.com` in `http.nonProxyHosts` so those repositories bypass the proxy.
 
-## Build modes
+## Build
 
-### Core-only build (default)
-Build only the base reactor (`api` + `Core`) without optional integration modules:
+Build the base reactor (`api` + `Core`):
 
 ```bash
 mvn clean package
 ```
 
-### Core + integration modules
-Enable optional integration modules with Maven profiles:
-
-```bash
-# all standard integrations (except PlotSquared)
-mvn clean package -Pwith-integrations
-
-# PlotSquared (separate profile due to dependency source reliability)
-mvn clean package -Pwith-plot-squared
-
-# include standard integrations and PlotSquared together
-mvn clean package -Pwith-integrations,with-plot-squared
-```
-
 ## Troubleshooting dependency resolution
 
-If Maven reports that `io.papermc.paper:paper-api` was previously missing from `nightexpress-releases`, this is usually a repository routing/cache issue.
-
-Recommended recovery sequence:
+If Maven reports that `org.spigotmc:spigot-api:1.21.4-R0.1-SNAPSHOT` could not be resolved, force snapshot refresh and clear stale local cache markers:
 
 ```bash
-# 1) force snapshot refresh
 mvn -U clean install
-
-# 2) if still cached as missing, remove stale marker files and retry
-find ~/.m2/repository/io/papermc/paper/paper-api -name "*.lastUpdated" -delete
+find ~/.m2/repository/org/spigotmc/spigot-api -name "*.lastUpdated" -delete
 mvn -U clean install
 ```
 
 Notes:
 
-- `paper-api` snapshots must resolve from `papermc` (`https://repo.papermc.io/repository/maven-public/`), not from release-only repos.
-- Keep `papermc` enabled for both snapshots and releases, because Paper API transitives (for example `com.mojang:brigadier`) may resolve as release artifacts from the same repository path.
-- If your environment uses an HTTP proxy, allowlist Maven Central and PaperMC endpoints; otherwise plugin resolution can fail before project dependencies are resolved.
+- Spigot API snapshots resolve from `https://hub.spigotmc.org/nexus/content/repositories/snapshots/`.
+- If your environment uses an HTTP proxy, allowlist `hub.spigotmc.org|repo.maven.apache.org|repo.nightexpressdev.com` in non-proxy hosts.
