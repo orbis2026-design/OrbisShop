@@ -1,8 +1,9 @@
-name: ExcellentShop
+name: OrbisShop
 main: su.nightexpress.nexshop.ShopPlugin
 version: '${project.version}'
 description: Advanced 4 in 1 shop plugin with a lot of cool features!
 author: NightExpress
+aliases: [ orbisshop, oshop, excellentshop ]
 depend: [ nightcore ]
 softdepend:
   - WorldGuard

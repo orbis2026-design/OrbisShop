@@ -26,6 +26,9 @@ import java.util.function.Function;
 
 public class AuctionDatabase extends AbstractDataManager<ShopPlugin> {
 
+    private static final String DB_PREFIX_NEW = "orbisshop_auction";
+    private static final String DB_PREFIX_OLD = "excellentshop_auction";
+
     static final Column COLUMN_ID            = Column.of("aucId", ColumnType.STRING);
     static final Column COLUMN_OWNER         = Column.of("owner", ColumnType.STRING);
     static final Column COLUMN_OWNER_NAME    = Column.of("ownerName", ColumnType.STRING);
@@ -45,8 +48,13 @@ public class AuctionDatabase extends AbstractDataManager<ShopPlugin> {
     private final String tableCompletedListings;
 
     public AuctionDatabase(@NotNull ShopPlugin plugin, @NotNull AuctionManager manager, @NotNull FileConfig config) {
-        super(plugin, DatabaseConfig.read(config, "excellentshop_auction"));
+        super(plugin, DatabaseConfig.read(config, config.contains(DB_PREFIX_NEW) ? DB_PREFIX_NEW : DB_PREFIX_OLD));
         this.manager = manager;
+
+        if (config.contains(DB_PREFIX_OLD) && !config.contains(DB_PREFIX_NEW)) {
+            plugin.info("Migrating auction database settings key from '" + DB_PREFIX_OLD + "' to '" + DB_PREFIX_NEW + "'.");
+            config.set(DB_PREFIX_NEW, config.getSection(DB_PREFIX_OLD));
+        }
 
         this.tableListings = this.getTablePrefix() + "_items";
         this.tableCompletedListings = this.getTablePrefix() + "_history";

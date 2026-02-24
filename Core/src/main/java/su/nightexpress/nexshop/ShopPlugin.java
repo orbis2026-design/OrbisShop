@@ -19,7 +19,7 @@ import su.nightexpress.nexshop.module.ModuleSettings;
 import su.nightexpress.nexshop.module.ModuleSupplier;
 import su.nightexpress.nexshop.shop.ShopManager;
 import su.nightexpress.nexshop.shop.chest.ChestShopModule;
-import su.nightexpress.excellentshop.integration.claim.WorldGuardFlags;
+import su.nightexpress.orbisshop.integration.claim.WorldGuardFlags;
 import su.nightexpress.nexshop.shop.chest.config.ChestLang;
 import su.nightexpress.nexshop.shop.virtual.VirtualShopModule;
 import su.nightexpress.nexshop.shop.virtual.lang.VirtualIconsLang;
@@ -53,7 +53,7 @@ public class ShopPlugin extends NightPlugin {
     @Override
     @NotNull
     protected PluginDetails getDefaultDetails() {
-        return PluginDetails.create("Shop", new String[]{"eshop", "excellentshop"})
+        return PluginDetails.create("OrbisShop", new String[]{"oshop", "orbisshop", "excellentshop"})
             .setConfigClass(Config.class)
             //.setLangClass(Lang.class)
             .setPermissionsClass(Perms.class);
