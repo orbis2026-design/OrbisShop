@@ -32,7 +32,7 @@
             <id>papermc</id>
             <url>https://repo.papermc.io/repository/maven-public/</url>
             <releases>
-                <enabled>true</enabled>
+                <enabled>false</enabled>
             </releases>
             <snapshots>
                 <enabled>true</enabled>
