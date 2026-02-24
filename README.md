@@ -87,3 +87,29 @@ Use one settings profile at a time when resolving dependencies:
 - `mvn -Pcorp-proxy ...` for corporate proxy routing.
 
 The `corp-proxy` profile must include `repo.papermc.io|repo.maven.apache.org|repo.nightexpressdev.com` in `http.nonProxyHosts` so those repositories bypass the proxy.
+
+## Build modes
+
+### Core-only build (default)
+Build only the base reactor (`api` + `Core`) without optional integration modules:
+
+```bash
+mvn clean package
+```
+
+### Core + integration modules
+Enable optional integration modules with Maven profiles:
+
+```bash
+# all standard integrations (except PlotSquared)
+mvn clean package -Pwith-integrations
+
+# single integration example
+mvn clean package -Pwith-world-guard
+
+# multiple selected integrations
+mvn clean package -Pwith-lands,with-world-guard,with-upgradeable-hoppers
+
+# PlotSquared (separate profile due to dependency source reliability)
+mvn clean package -Pwith-plot-squared
+```
