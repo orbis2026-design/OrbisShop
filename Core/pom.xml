@@ -128,12 +128,6 @@
                     <version>${project.version}</version>
                 </dependency>
 
-                <dependency>
-                    <groupId>${project.groupId}</groupId>
-                    <artifactId>integration-plot-squared</artifactId>
-                    <version>${project.version}</version>
-                </dependency>
-
             </dependencies>
         </profile>
 
