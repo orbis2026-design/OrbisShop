@@ -19,12 +19,12 @@ import su.nightexpress.nexshop.module.ModuleSettings;
 import su.nightexpress.nexshop.module.ModuleSupplier;
 import su.nightexpress.nexshop.shop.ShopManager;
 import su.nightexpress.nexshop.shop.chest.ChestShopModule;
-import su.nightexpress.orbisshop.integration.claim.WorldGuardFlags;
 import su.nightexpress.nexshop.shop.chest.config.ChestLang;
 import su.nightexpress.nexshop.shop.virtual.VirtualShopModule;
 import su.nightexpress.nexshop.shop.virtual.lang.VirtualIconsLang;
 import su.nightexpress.nexshop.shop.virtual.lang.VirtualLang;
 import su.nightexpress.nexshop.user.UserManager;
+import su.nightexpress.nexshop.util.WorldGuardBridge;
 import su.nightexpress.nightcore.NightPlugin;
 import su.nightexpress.nightcore.commands.Commands;
 import su.nightexpress.nightcore.commands.command.NightCommand;
@@ -63,7 +63,7 @@ public class ShopPlugin extends NightPlugin {
     public void onLoad() {
         super.onLoad();
         if (this.getServer().getPluginManager().getPlugin(HookPlugin.WORLD_GUARD) != null) {
-            WorldGuardFlags.setupFlag();
+            WorldGuardBridge.setupFlag();
         }
     }
 

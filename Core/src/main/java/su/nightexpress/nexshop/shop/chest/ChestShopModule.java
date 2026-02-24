@@ -38,6 +38,7 @@ import su.nightexpress.nexshop.module.ModuleSettings;
 import su.nightexpress.nexshop.product.price.impl.FlatPricing;
 import su.nightexpress.nexshop.shop.chest.command.ChestShopCommands;
 import su.nightexpress.nexshop.shop.chest.config.*;
+import su.nightexpress.nexshop.util.WorldGuardBridge;
 import su.nightexpress.nexshop.shop.chest.display.DisplayManager;
 import su.nightexpress.nexshop.shop.chest.impl.*;
 import su.nightexpress.nexshop.shop.chest.listener.ShopListener;
@@ -1121,7 +1122,7 @@ public class ChestShopModule extends AbstractModule implements ShopModule, Playe
         }
 
         if (Plugins.isInstalled(HookPlugin.WORLD_GUARD)) {
-            return WorldGuardFlags.checkFlag(player, block.getLocation());
+            return WorldGuardBridge.checkFlag(player, block.getLocation());
         }
         return true;
     }
