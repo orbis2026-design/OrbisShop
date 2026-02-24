@@ -62,6 +62,7 @@ import su.nightexpress.nightcore.util.text.NightMessage;
 import su.nightexpress.nightcore.util.time.TimeFormats;
 
 import java.io.File;
+import java.lang.reflect.Constructor;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Consumer;
@@ -256,8 +257,13 @@ public class ChestShopModule extends AbstractModule implements ShopModule, Playe
     private <T> T newHookInstance(@NotNull String plugin, @NotNull String className, @NotNull Class<T> type, @NotNull Object... constructorArgs) {
         try {
             Class<?> hookClass = Class.forName(className);
-            Class<?>[] parameterTypes = Arrays.stream(constructorArgs).map(Object::getClass).toArray(Class[]::new);
-            Object instance = hookClass.getDeclaredConstructor(parameterTypes).newInstance(constructorArgs);
+            Constructor<?> constructor = Arrays.stream(hookClass.getDeclaredConstructors())
+                .filter(candidate -> this.isCompatibleConstructor(candidate.getParameterTypes(), constructorArgs))
+                .findFirst()
+                .orElseThrow(() -> new NoSuchMethodException("No compatible constructor for '" + className + "'"));
+
+            constructor.setAccessible(true);
+            Object instance = constructor.newInstance(constructorArgs);
 
             if (!type.isInstance(instance)) {
                 this.warn("Unable to enable " + plugin + " integration: '" + className + "' is not a " + type.getSimpleName() + '.');
@@ -273,6 +279,18 @@ public class ChestShopModule extends AbstractModule implements ShopModule, Playe
             exception.printStackTrace();
         }
         return null;
+    }
+
+    private boolean isCompatibleConstructor(@NotNull Class<?>[] parameterTypes, @NotNull Object[] constructorArgs) {
+        if (parameterTypes.length != constructorArgs.length) return false;
+
+        for (int index = 0; index < parameterTypes.length; index++) {
+            if (!parameterTypes[index].isAssignableFrom(constructorArgs[index].getClass())) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     private void loadDisplayManager() {
