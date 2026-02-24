@@ -80,3 +80,10 @@ It includes **GUI Shop** (with Rotations), **Chest Shop** and **Auction House**.
 
 ## Donate
 If you like my work or enjoy using my plugins, feel free to [Buy me a coffee :icon-link-external:](https://ko-fi.com/nightexpress) :) Thank you! 🧡
+## Maven proxy profile usage
+Use one settings profile at a time when resolving dependencies:
+
+- `mvn -Pdirect ...` for direct (no proxy) access.
+- `mvn -Pcorp-proxy ...` for corporate proxy routing.
+
+The `corp-proxy` profile must include `repo.papermc.io|repo.maven.apache.org|repo.nightexpressdev.com` in `http.nonProxyHosts` so those repositories bypass the proxy.
