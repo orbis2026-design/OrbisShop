@@ -83,11 +83,6 @@
             <version>${project.version}</version>
         </dependency>
 
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>integration-plot-squared</artifactId>
-            <version>${project.version}</version>
-        </dependency>
 
         <dependency>
             <groupId>${project.groupId}</groupId>
@@ -128,6 +123,21 @@
             <scope>provided</scope>
         </dependency>
     </dependencies>
+
+
+    <profiles>
+        <!-- Keep optional PlotSquared wiring behind the same explicit reactor profile: -Pwith-plotsquared -->
+        <profile>
+            <id>with-plotsquared</id>
+            <dependencies>
+                <dependency>
+                    <groupId>${project.groupId}</groupId>
+                    <artifactId>integration-plot-squared</artifactId>
+                    <version>${project.version}</version>
+                </dependency>
+            </dependencies>
+        </profile>
+    </profiles>
 
     <build>
         <resources>

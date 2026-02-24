@@ -21,13 +21,17 @@
         <module>integration-world-guard</module>
         <module>integration-advanced-region-market</module>
         <module>integration-upgradeable-hoppers</module>
-        <!--
-          PlotSquared integration is intentionally excluded from the default reactor build because
-          its upstream repository frequently responds with HTTP 403 for automated Maven clients.
-          The module remains in the repository and can still be built manually in environments
-          where that dependency source is accessible.
-        -->
     </modules>
+
+    <profiles>
+        <!-- Activate PlotSquared integration explicitly when its external BOM is reachable: -Pwith-plotsquared -->
+        <profile>
+            <id>with-plotsquared</id>
+            <modules>
+                <module>integration-plot-squared</module>
+            </modules>
+        </profile>
+    </profiles>
 
     <properties>
         <maven.compiler.source>21</maven.compiler.source>
