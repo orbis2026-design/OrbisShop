@@ -113,7 +113,7 @@ mvn clean package -Pwith-integrations,with-plot-squared
 
 ## Troubleshooting dependency resolution
 
-If Maven reports that `io.papermc.paper:paper-api:1.21.11-R0.1-SNAPSHOT` was previously missing from `nightexpress-releases`, do **not** downgrade Paper immediately. This is usually a repository routing/cache issue.
+If Maven reports that `io.papermc.paper:paper-api` was previously missing from `nightexpress-releases`, this is usually a repository routing/cache issue.
 
 Recommended recovery sequence:
 
