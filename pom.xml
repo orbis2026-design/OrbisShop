@@ -153,5 +153,12 @@
             </modules>
         </profile>
 
+        <profile>
+            <id>with-plotsquared</id>
+            <modules>
+                <module>integration-plot-squared</module>
+            </modules>
+        </profile>
+
     </profiles>
 </project>
