@@ -129,4 +129,5 @@ mvn -U clean install
 Notes:
 
 - `paper-api` snapshots must resolve from `papermc` (`https://repo.papermc.io/repository/maven-public/`), not from release-only repos.
+- Keep `papermc` enabled for both snapshots and releases, because Paper API transitives (for example `com.mojang:brigadier`) may resolve as release artifacts from the same repository path.
 - If your environment uses an HTTP proxy, allowlist Maven Central and PaperMC endpoints; otherwise plugin resolution can fail before project dependencies are resolved.
