@@ -32,6 +32,18 @@
             <id>codemc-releases</id>
             <url>https://repo.codemc.io/repository/maven-releases/</url>
         </repository>
+
+        <repository>
+            <id>codemc-snapshots</id>
+            <url>https://repo.codemc.io/repository/maven-snapshots/</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>always</updatePolicy>
+            </snapshots>
+        </repository>
     </repositories>
 
     <dependencies>
@@ -63,84 +75,6 @@
         </dependency>
     </dependencies>
 
-    <profiles>
-        <profile>
-            <id>with-integrations</id>
-            <dependencies>
-                <dependency>
-                    <groupId>${project.groupId}</groupId>
-                    <artifactId>integration-excellent-claims</artifactId>
-                    <version>${project.version}</version>
-                </dependency>
-
-                <dependency>
-                    <groupId>${project.groupId}</groupId>
-                    <artifactId>integration-grief-defender</artifactId>
-                    <version>${project.version}</version>
-                </dependency>
-
-                <dependency>
-                    <groupId>${project.groupId}</groupId>
-                    <artifactId>integration-grief-prevention</artifactId>
-                    <version>${project.version}</version>
-                </dependency>
-
-                <dependency>
-                    <groupId>${project.groupId}</groupId>
-                    <artifactId>integration-husk-claims</artifactId>
-                    <version>${project.version}</version>
-                </dependency>
-
-                <dependency>
-                    <groupId>${project.groupId}</groupId>
-                    <artifactId>integration-kingdoms</artifactId>
-                    <version>${project.version}</version>
-                </dependency>
-
-                <dependency>
-                    <groupId>${project.groupId}</groupId>
-                    <artifactId>integration-lands</artifactId>
-                    <version>${project.version}</version>
-                </dependency>
-
-                <dependency>
-                    <groupId>${project.groupId}</groupId>
-                    <artifactId>integration-simple-claim-system</artifactId>
-                    <version>${project.version}</version>
-                </dependency>
-
-                <dependency>
-                    <groupId>${project.groupId}</groupId>
-                    <artifactId>integration-world-guard</artifactId>
-                    <version>${project.version}</version>
-                </dependency>
-
-                <dependency>
-                    <groupId>${project.groupId}</groupId>
-                    <artifactId>integration-advanced-region-market</artifactId>
-                    <version>${project.version}</version>
-                </dependency>
-
-                <dependency>
-                    <groupId>${project.groupId}</groupId>
-                    <artifactId>integration-upgradeable-hoppers</artifactId>
-                    <version>${project.version}</version>
-                </dependency>
-
-            </dependencies>
-        </profile>
-
-        <profile>
-            <id>with-plot-squared</id>
-            <dependencies>
-                <dependency>
-                    <groupId>${project.groupId}</groupId>
-                    <artifactId>integration-plot-squared</artifactId>
-                    <version>${project.version}</version>
-                </dependency>
-            </dependencies>
-        </profile>
-    </profiles>
 
     <build>
         <resources>
