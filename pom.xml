@@ -69,6 +69,30 @@
             <version>2.9.4</version>
         </dependency>
     </dependencies>
+    <profiles>
+        <profile>
+            <id>with-integrations</id>
+            <modules>
+                <module>integration-excellent-claims</module>
+                <module>integration-grief-defender</module>
+                <module>integration-grief-prevention</module>
+                <module>integration-husk-claims</module>
+                <module>integration-kingdoms</module>
+                <module>integration-lands</module>
+                <module>integration-simple-claim-system</module>
+                <module>integration-world-guard</module>
+                <module>integration-advanced-region-market</module>
+                <module>integration-upgradeable-hoppers</module>
+            </modules>
+        </profile>
+
+        <profile>
+            <id>with-plot-squared</id>
+            <modules>
+                <module>integration-plot-squared</module>
+            </modules>
+        </profile>
+    </profiles>
 
     <profiles>
         <profile>

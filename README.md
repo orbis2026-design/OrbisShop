@@ -104,12 +104,9 @@ Enable optional integration modules with Maven profiles:
 # all standard integrations (except PlotSquared)
 mvn clean package -Pwith-integrations
 
-# single integration example
-mvn clean package -Pwith-world-guard
-
-# multiple selected integrations
-mvn clean package -Pwith-lands,with-world-guard,with-upgradeable-hoppers
-
 # PlotSquared (separate profile due to dependency source reliability)
 mvn clean package -Pwith-plot-squared
+
+# include standard integrations and PlotSquared together
+mvn clean package -Pwith-integrations,with-plot-squared
 ```
