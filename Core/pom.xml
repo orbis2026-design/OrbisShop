@@ -3,8 +3,8 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>ExcellentShop-spigot</artifactId>
-        <groupId>su.nightexpress.excellentshop</groupId>
+        <artifactId>OrbisShop-spigot</artifactId>
+        <groupId>su.nightexpress.orbisshop</groupId>
         <version>4.22.1</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
@@ -148,10 +148,10 @@
                             <goal>shade</goal>
                         </goals>
                         <configuration>
-                            <outputFile>${project.parent.basedir}\target\ExcellentShop-${project.version}.jar</outputFile>
+                            <outputFile>${project.parent.basedir}\target\OrbisShop-${project.version}.jar</outputFile>
                             <artifactSet>
                                 <includes>
-                                    <include>su.nightexpress.excellentshop:*</include>
+                                    <include>su.nightexpress.orbisshop:*</include>
                                 </includes>
                             </artifactSet>
                         </configuration>

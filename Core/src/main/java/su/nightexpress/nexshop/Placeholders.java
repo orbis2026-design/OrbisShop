@@ -43,7 +43,7 @@ import java.util.stream.Collectors;
 
 public class Placeholders extends su.nightexpress.nightcore.util.Placeholders {
 
-    public static final String URL_WIKI               = "https://nightexpressdev.com/excellentshop/";
+    public static final String URL_WIKI               = "https://nightexpressdev.com/orbisshop/";
     public static final String URL_WIKI_PLACEHOLDERS  = URL_WIKI + "placeholders";
 
     public static final String URL_CUSTOM_ITEMS = "https://nightexpressdev.com/nightcore/integrations/items/";

@@ -152,7 +152,8 @@ public class ChestConfig {
     public static final ConfigValue<Boolean> SHOP_CREATION_CLAIM_ONLY = ConfigValue.create("Shops.Creation.In_Player_Claims_Only.Enabled",
         false,
         "Sets whether or not players can create shops in their own claims only.",
-        "Supported Plugins: https://nightexpressdev.com/excellentshop/chest/claim-integrations/");
+        "Supported Plugins: https://nightexpressdev.com/orbisshop/chest/claim-integrations/",
+        "Legacy ExcellentShop URLs remain valid for backwards compatibility.");
 
     public static final ConfigValue<Double> PRODUCT_MAX_PRICE = ConfigValue.create("Shops.Products.Max-Price",
         10_000_000D,
