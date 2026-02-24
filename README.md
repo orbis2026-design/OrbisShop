@@ -109,4 +109,5 @@ mvn -U clean install
 Notes:
 
 - Spigot API snapshots resolve from `https://hub.spigotmc.org/nexus/content/repositories/snapshots/`.
-- If your environment uses an HTTP proxy, allowlist `hub.spigotmc.org|repo.maven.apache.org|repo.nightexpressdev.com` in non-proxy hosts.
+- PacketEvents snapshots resolve from `https://repo.codemc.io/repository/maven-snapshots/`.
+- If your environment uses an HTTP proxy, allowlist `hub.spigotmc.org|repo.codemc.io|repo.maven.apache.org|repo.nightexpressdev.com` in non-proxy hosts.
