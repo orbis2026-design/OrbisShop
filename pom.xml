@@ -13,21 +13,11 @@
         <module>api</module>
     </modules>
 
-    <profiles>
-        <!-- Activate PlotSquared integration explicitly when its external BOM is reachable: -Pwith-plotsquared -->
-        <profile>
-            <id>with-plotsquared</id>
-            <modules>
-                <module>integration-plot-squared</module>
-            </modules>
-        </profile>
-    </profiles>
-
     <properties>
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <paper.api.version>1.21.1-R0.1-SNAPSHOT</paper.api.version>
+        <spigot.api.version>1.21.4-R0.1-SNAPSHOT</spigot.api.version>
     </properties>
 
     <distributionManagement>
@@ -39,27 +29,34 @@
 
     <repositories>
         <repository>
-            <id>papermc</id>
-            <url>https://repo.papermc.io/repository/maven-public/</url>
+            <id>spigotmc-snapshots</id>
+            <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
             <releases>
-                <enabled>true</enabled>
+                <enabled>false</enabled>
             </releases>
             <snapshots>
                 <enabled>true</enabled>
+                <updatePolicy>always</updatePolicy>
             </snapshots>
         </repository>
 
         <repository>
             <id>nightexpress-releases</id>
             <url>https://repo.nightexpressdev.com/releases</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
         </repository>
     </repositories>
 
     <dependencies>
         <dependency>
-            <groupId>io.papermc.paper</groupId>
-            <artifactId>paper-api</artifactId>
-            <version>${paper.api.version}</version>
+            <groupId>org.spigotmc</groupId>
+            <artifactId>spigot-api</artifactId>
+            <version>${spigot.api.version}</version>
             <scope>provided</scope>
         </dependency>
 
@@ -69,124 +66,4 @@
             <version>2.9.4</version>
         </dependency>
     </dependencies>
-    <profiles>
-        <profile>
-            <id>with-integrations</id>
-            <modules>
-                <module>integration-excellent-claims</module>
-                <module>integration-grief-defender</module>
-                <module>integration-grief-prevention</module>
-                <module>integration-husk-claims</module>
-                <module>integration-kingdoms</module>
-                <module>integration-lands</module>
-                <module>integration-simple-claim-system</module>
-                <module>integration-world-guard</module>
-                <module>integration-advanced-region-market</module>
-                <module>integration-upgradeable-hoppers</module>
-            </modules>
-        </profile>
-
-        <profile>
-            <id>with-plot-squared</id>
-            <modules>
-                <module>integration-plot-squared</module>
-            </modules>
-        </profile>
-    </profiles>
-
-    <profiles>
-        <profile>
-            <id>with-integrations</id>
-            <modules>
-                <module>integration-excellent-claims</module>
-                <module>integration-grief-defender</module>
-                <module>integration-grief-prevention</module>
-                <module>integration-husk-claims</module>
-                <module>integration-kingdoms</module>
-                <module>integration-lands</module>
-                <module>integration-simple-claim-system</module>
-                <module>integration-world-guard</module>
-                <module>integration-advanced-region-market</module>
-                <module>integration-upgradeable-hoppers</module>
-            </modules>
-        </profile>
-
-        <profile>
-            <id>with-excellent-claims</id>
-            <modules>
-                <module>integration-excellent-claims</module>
-            </modules>
-        </profile>
-
-        <profile>
-            <id>with-grief-defender</id>
-            <modules>
-                <module>integration-grief-defender</module>
-            </modules>
-        </profile>
-
-        <profile>
-            <id>with-grief-prevention</id>
-            <modules>
-                <module>integration-grief-prevention</module>
-            </modules>
-        </profile>
-
-        <profile>
-            <id>with-husk-claims</id>
-            <modules>
-                <module>integration-husk-claims</module>
-            </modules>
-        </profile>
-
-        <profile>
-            <id>with-kingdoms</id>
-            <modules>
-                <module>integration-kingdoms</module>
-            </modules>
-        </profile>
-
-        <profile>
-            <id>with-lands</id>
-            <modules>
-                <module>integration-lands</module>
-            </modules>
-        </profile>
-
-        <profile>
-            <id>with-simple-claim-system</id>
-            <modules>
-                <module>integration-simple-claim-system</module>
-            </modules>
-        </profile>
-
-        <profile>
-            <id>with-world-guard</id>
-            <modules>
-                <module>integration-world-guard</module>
-            </modules>
-        </profile>
-
-        <profile>
-            <id>with-advanced-region-market</id>
-            <modules>
-                <module>integration-advanced-region-market</module>
-            </modules>
-        </profile>
-
-        <profile>
-            <id>with-upgradeable-hoppers</id>
-            <modules>
-                <module>integration-upgradeable-hoppers</module>
-            </modules>
-        </profile>
-
-        <profile>
-            <id>with-plot-squared</id>
-            <modules>
-                <module>integration-plot-squared</module>
-            </modules>
-        </profile>
-
-    </profiles>
 </project>
